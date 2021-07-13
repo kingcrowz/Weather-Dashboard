@@ -44,8 +44,8 @@ function getParams() {
 
 
   function searchApi(query, format) {
-    var locQueryUrl = 'http://api.openweathermap.org/data/2.5/forecast';
-    todayWeather = 'http://api.openweathermap.org/data/2.5/weather';
+    var locQueryUrl = 'https://api.openweathermap.org/data/2.5/forecast';
+    todayWeather = 'https://api.openweathermap.org/data/2.5/weather';
     console.log(format);
     locQueryUrl = locQueryUrl + '?q=' + query + "&appid=" + format + "&units=imperial";
     todayWeather = todayWeather + '?q=' + query + "&appid=" + format + "&units=imperial";
@@ -107,7 +107,7 @@ function getParams() {
         '<strong>Description:</strong> ' + resultObj.weather[0].description;
     var imgElement = document.createElement("img");
     var icon = resultObj.weather[0].icon;
-    var iconurl = "http://openweathermap.org/img/w/" + icon + ".png";
+    var iconurl = "https://openweathermap.org/img/w/" + icon + ".png";
     imgElement.src = iconurl;
   
     // var linkButtonEl = document.createElement('a');

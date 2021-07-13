@@ -17,7 +17,7 @@ function handleSearchFormSubmit(event) {
     return;
   }
 
-  queryUrl = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchInputVal + "&appid=" +APIKey;
+  queryUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchInputVal + "&appid=" +APIKey;
   searchApi(searchInputVal, APIKey);
 // var queryString = './search-results.html?q=' + searchInputVal + '&format=' + formatInputVal;
 //   var queryString = './search-results.html?q=' + searchInputVal;

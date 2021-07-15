@@ -3,35 +3,51 @@ var resultContentEl = document.querySelector('#result-content');
 var searchFormEl = document.querySelector('#search-form');
 var searchInputVal= document.querySelector('#search-input');
 var today = document.querySelector('#currentWeatherSection');
+var recSer = document.querySelector('#recentSearches');
 var APIKey = "a305d46d8e583055265454a4f817362a";
 var queryUrl;
 var todayWeather;
+var resultCard;
 function handleSearchFormSubmit(event) {
   event.preventDefault();
 
   searchInputVal= document.querySelector('#search-input').value;
-  // var formatInputVal = document.querySelector('#format-input').value;
 
   if (!searchInputVal) {
     console.error('You need a search input value!');
     return;
   }
-
+  addToRecent(searchInputVal);
   queryUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchInputVal + "&appid=" +APIKey;
   searchApi(searchInputVal, APIKey);
-// var queryString = './search-results.html?q=' + searchInputVal + '&format=' + formatInputVal;
-//   var queryString = './search-results.html?q=' + searchInputVal;
-//   location.assign(queryString);
 }
+
+function addToRecent(inputval){
+  var serBut = document.createElement('button');
+  serBut.innerHTML = inputval;
+  serBut.addEventListener('click', searchAgain);
+  localStorage.setItem("LastCity", inputval);
+  recSer.append(serBut);
+}
+
+function searchAgain(event){
+  event.preventDefault();
+  console.log("clicked");
+  console.log(event.target.innerHTML);
+  var buttonTransfer = event.target.innerHTML;
+  queryUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + buttonTransfer + "&appid=" +APIKey;
+  searchApi(buttonTransfer, APIKey);
+}
+
+
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
 
 function getParams() {
-    // Get the search params out of the URL (i.e. `?q=london&format=photo`) and convert it to an array (i.e. ['?q=london', 'format=photo'])
     var searchParamsArr = document.querySelector('#search-input').val;
     console.log(searchParamsArr);
-    // Get the query and format values
+    // Get the query and APIkey values
     var query = searchParamsArr;
     console.log(query + "= Query");
     console.log(APIKey + "=appid");
@@ -59,7 +75,6 @@ function getParams() {
         return response.json();
       })
       .then(function (locRes) {
-        // write query to page so user knows what they are viewing
         resultTextEl.textContent = locRes.city.name;
   
         console.log(locRes);
@@ -69,11 +84,6 @@ function getParams() {
           resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
         } else {
           resultContentEl.textContent = '';
-          for (var i = 0; i < locRes.list.length; i++) {
-            if(i===0 || i===8 || i===16 || i===24 || i===32){
-            printResults(locRes.list[i]);
-            }
-          }
         }
       })
       .catch(function (error) {
@@ -94,29 +104,27 @@ function getParams() {
     resultCard.append(resultBody);
   
     var titleEl = document.createElement('h3');
-    titleEl.textContent = resultObj.city;
-  
-    var bodyContentEl = document.createElement('p');
-    bodyContentEl.innerHTML =
-      '<strong>Date:</strong> ' + resultObj.dt_txt + '<br/>';
-  
-      bodyContentEl.innerHTML +=
-        '<strong>Temperature:</strong> between ' + resultObj.main.temp_min + ' and ' + resultObj.main.temp_max + '<br/>';
-  
-      bodyContentEl.innerHTML +=
-        '<strong>Description:</strong> ' + resultObj.weather[0].description;
-    var imgElement = document.createElement("img");
+    var realtime = moment.unix(resultObj.dt).format("MM/DD/YYYY");
+    titleEl.textContent = realtime;
+
+     var imgElement = document.createElement("img");
     var icon = resultObj.weather[0].icon;
     var iconurl = "https://openweathermap.org/img/w/" + icon + ".png";
     imgElement.src = iconurl;
   
-    // var linkButtonEl = document.createElement('a');
-    // linkButtonEl.textContent = 'Read More';
-    // linkButtonEl.setAttribute('href', resultObj.url);
-    // linkButtonEl.classList.add('btn', 'btn-dark');
+    var bodyContentEl = document.createElement('p');
   
-    resultBody.append(titleEl, bodyContentEl, imgElement);
+      bodyContentEl.innerHTML =
+        '<strong>Temperature:</strong> ' + resultObj.temp.day + '<br/>';
   
+      bodyContentEl.innerHTML +=
+        '<strong>wind speed:</strong> ' + resultObj.wind_speed + '<br/>';
+   
+        bodyContentEl.innerHTML +=
+        '<strong>humidity:</strong> ' + resultObj.humidity;
+  
+  
+    resultBody.append(titleEl, imgElement, bodyContentEl);
     resultContentEl.append(resultCard);
   }
 
@@ -125,29 +133,79 @@ function getCurrentWeather(todayWeather){
   fetch(todayWeather).then(function(response){
     return(response.json());
   }).then(function(data){
-    console.log(data);
+    today.innerHTML = '';
     var lat = data.coord.lat;
     var long = data.coord.lon;
     var headEl = document.createElement('h1');
     headEl.innerHTML = data.name;
-    console.log(headEl);
     var uvVal = data.dt;
-    console.log(uvVal);
     var timeholder  = moment.unix(uvVal).format("MM/DD/YYYY");
     var timeEl = document.createElement('h2');
     timeEl.innerHTML = timeholder;
-    today.append(headEl, timeEl);
-    getUVIndex(lat, long);
-
+    getUVIndex(lat, long, headEl, timeEl);
   })
 }
 
 
-function getUVIndex(lat, long){
+function getUVIndex(lat, long, headEl, timeEl){
   var holder = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&appid=" + APIKey + "&units=imperial";
   fetch(holder).then(function(response){
     return(response.json());
   }).then(function(data){
     console.log(data);
+    var temp = data.current.temp;
+    var humidity =  data.current.humidity;
+    var wind =  data.current.wind_speed;
+    console.log(temp);
+    console.log(humidity);
+    console.log(wind);
+    var tempEl = document.createElement('h3');
+    var humidEl = document.createElement('h3');
+    var windEl = document.createElement('h3');
+    tempEl.innerHTML = '<strong>Temp:</strong> ' + temp + ' F<br/>';
+    humidEl.innerHTML = '<strong>Humidity:</strong> ' + humidity + '%<br/>';
+    windEl.innerHTML = '<strong>Wind Speed:</strong> ' + wind + ' MPH<br/>';
+    var uvIDholder = data.current.uvi;
+    console.log(data);
+    var uvID = document.createElement('h3');
+    if(uvIDholder>=0 && uvIDholder<=2){
+      uvID.innerHTML = '<strong>UVI:</strong> ' + uvIDholder + ' UV-Green<br/>';
+      //UV GREEN
+     }else if(uvIDholder>2 && uvIDholder<=5){
+      uvID.innerHTML = '<strong>UVI:</strong> ' + uvIDholder + ' UV-Yellow<br/>';
+       //UV YELLOW
+     }else if(uvIDholder>5 && uvIDholder<7){
+      uvID.innerHTML = '<strong>UVI:</strong> ' + uvIDholder + ' UV-Orange<br/>';
+       //UV ORANGE
+     }else if(uvIDholder>=7 && uvIDholder<10){
+      uvID.innerHTML = '<strong>UVI:</strong> ' + uvIDholder + ' UV-Red<br/>';
+       //UV RED
+     }else if(uvIDholder>=10){
+      uvID.innerHTML = '<strong>UVI:</strong> ' + uvIDholder + ' UV-PURPLE<br/>';
+       //UV PURPLE
+     }
+     
+    resultCard = document.createElement('div');
+    resultCard.classList.add('card', 'bg-light', 'text-dark', 'mb-3', 'p-3');
+    resultCard.append(headEl, timeEl, tempEl, humidEl, windEl, uvID);
+    today.append(resultCard);
+    console.log(data.daily);
+    for(var i=0; i<=4; i++){
+      printResults(data.daily[i]);
+    }
   })
 }
+
+
+
+function setButton(){
+  var last = localStorage.getItem("LastCity");
+  console.log(last);
+  if(last!=null){
+  var serBut = document.createElement('button');
+  serBut.innerHTML = last;
+  serBut.addEventListener('click', searchAgain);
+  recSer.append(serBut);
+  }
+}
+setButton();

@@ -177,18 +177,23 @@ function getUVIndex(lat, long, headEl, timeEl){
     var uvID = document.createElement('h3');
     if(uvIDholder>=0 && uvIDholder<=2){
       uvID.innerHTML = '<strong>UVI:</strong> ' + uvIDholder + ' UV-Green<br/>';
+      uvID.classList.add('bg-info');
       //UV GREEN
      }else if(uvIDholder>2 && uvIDholder<=5){
       uvID.innerHTML = '<strong>UVI:</strong> ' + uvIDholder + ' UV-Yellow<br/>';
+      uvID.classList.add('bg-yellow');
        //UV YELLOW
      }else if(uvIDholder>5 && uvIDholder<7){
       uvID.innerHTML = '<strong>UVI:</strong> ' + uvIDholder + ' UV-Orange<br/>';
+      uvID.classList.add('bg-orange');
        //UV ORANGE
      }else if(uvIDholder>=7 && uvIDholder<10){
       uvID.innerHTML = '<strong>UVI:</strong> ' + uvIDholder + ' UV-Red<br/>';
+      uvID.classList.add('bg-danger');
        //UV RED
      }else if(uvIDholder>=10){
       uvID.innerHTML = '<strong>UVI:</strong> ' + uvIDholder + ' UV-PURPLE<br/>';
+      uvID.classList.add('bg-purple');
        //UV PURPLE
      }
      

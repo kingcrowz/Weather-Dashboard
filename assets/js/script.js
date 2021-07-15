@@ -8,6 +8,8 @@ var APIKey = "a305d46d8e583055265454a4f817362a";
 var queryUrl;
 var todayWeather;
 var resultCard;
+
+
 function handleSearchFormSubmit(event) {
   event.preventDefault();
 
@@ -22,6 +24,9 @@ function handleSearchFormSubmit(event) {
   searchApi(searchInputVal, APIKey);
 }
 
+
+//This function is used when a search is submitted, a button will be created from the recent searches
+//Also saves the most recent search to local storage for persisting value
 function addToRecent(inputval){
   var serBut = document.createElement('button');
   serBut.innerHTML = inputval;
@@ -30,6 +35,8 @@ function addToRecent(inputval){
   recSer.append(serBut);
 }
 
+
+//This function is called when a recent searches button is clicked and then sends for an API search
 function searchAgain(event){
   event.preventDefault();
   console.log("clicked");
@@ -43,7 +50,7 @@ function searchAgain(event){
 
 searchFormEl.addEventListener('submit', handleSearchFormSubmit);
 
-
+//pulls in the parameters for the search from the user's input value 
 function getParams() {
     var searchParamsArr = document.querySelector('#search-input').val;
     console.log(searchParamsArr);
@@ -91,7 +98,7 @@ function getParams() {
       });
   }
 
-
+//This function sets up a div to hold the results of the 5 day forecast, and then displays them to the page.
   function printResults(resultObj) {
     console.log(resultObj);
   
@@ -128,7 +135,7 @@ function getParams() {
     resultContentEl.append(resultCard);
   }
 
-
+//sets the day and location for the searched city, then calls the getUVIndex function to fill out the remaining parts for the forecast
 function getCurrentWeather(todayWeather){
   fetch(todayWeather).then(function(response){
     return(response.json());
@@ -146,7 +153,7 @@ function getCurrentWeather(todayWeather){
   })
 }
 
-
+//fetches info from the onecall openweathermapAPI, and uses the data to create a card for the current day's forecast
 function getUVIndex(lat, long, headEl, timeEl){
   var holder = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + long + "&appid=" + APIKey + "&units=imperial";
   fetch(holder).then(function(response){
@@ -197,7 +204,8 @@ function getUVIndex(lat, long, headEl, timeEl){
 }
 
 
-
+//This section calls from local storage to see if there is anything available
+//If there is, it creates a button from the most recent search
 function setButton(){
   var last = localStorage.getItem("LastCity");
   console.log(last);

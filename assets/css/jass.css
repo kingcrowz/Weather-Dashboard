@@ -940,12 +940,24 @@ a:hover {
   background-color: #ffffff !important;
 }
 
+.bg-yellow {
+  background-color:  #d9ff00 !important;
+}
+
+.bg-orange {
+  background-color:  #fa9908 !important;
+}
+
 .bg-black {
   background-color: #000000 !important;
 }
 
 .bg-link {
   background-color: #1b89bc !important;
+}
+
+.bg-purple {
+  background-color:  #770b7a !important;
 }
 
 /* DISPLAY */

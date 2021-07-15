@@ -1,10 +1,15 @@
 # 06 Server-Side APIs: Weather Dashboard
 
-## Your Task
 
-Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
+## Description
 
-Use the [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) to retrieve weather data for cities. Read through the documentation for setup and usage instructions. You will use `localStorage` to store any persistent data. For more information on how to work with the OpenWeather API, refer to the [Full-Stack Blog on how to use API keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys).
+
+-The motivation behind this project was to create a weather dashboard where you could search a city and have returned to you the weather of that city that the 5 day forecast.
+-This project definitely tested my ability to debug my own code and figure out what things worked in certains ways and why they did.  It was definitely a struggle, and took by far the most time of anything I've worked on thus far, plus scrapping my code and restarting after 3 days of work was a setback as well.
+-The biggest problem I encountered in this project was getting the fetch requests to display their value when saved into a variable and then returned.  This was something I couldnt get to work, so I eventually changed up my code to make it work but ultimately led me to the right path.
+-If I had an extra day or two, I would try to implement a colored icon for the UV index that had a pulse effect for days where I'd recommend less sun.
+
+
 
 ## User Story
 
@@ -34,7 +39,7 @@ THEN I am again presented with current and future conditions for that city
 
 The following image shows the web application's appearance and functionality:
 
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./Assets/06-server-side-apis-homework-demo.png)
+![Vegas Forecast](./Assets/WeatherDashboard.png)
 
 ## Grading Requirements
 

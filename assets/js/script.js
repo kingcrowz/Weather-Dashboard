@@ -122,13 +122,13 @@ function getParams() {
     var bodyContentEl = document.createElement('p');
   
       bodyContentEl.innerHTML =
-        '<strong>Temperature:</strong> ' + resultObj.temp.day + '<br/>';
+        '<strong>Temperature:</strong> ' + resultObj.temp.day + ' F<br/>';
   
       bodyContentEl.innerHTML +=
-        '<strong>wind speed:</strong> ' + resultObj.wind_speed + '<br/>';
+        '<strong>wind speed:</strong> ' + resultObj.wind_speed + ' MPH<br/>';
    
         bodyContentEl.innerHTML +=
-        '<strong>humidity:</strong> ' + resultObj.humidity;
+        '<strong>humidity:</strong> ' + resultObj.humidity + '%';
   
   
     resultBody.append(titleEl, imgElement, bodyContentEl);

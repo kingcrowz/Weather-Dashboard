@@ -39,7 +39,7 @@ THEN I am again presented with current and future conditions for that city
 
 The following image shows the web application's appearance and functionality:
 
-![VegasForecast](./Assets/WeatherDashboard.png)
+![VegasForecast](./assets/WeatherDashboard.png)
 ## Grading Requirements
 
 This homework is graded based on the following criteria: 

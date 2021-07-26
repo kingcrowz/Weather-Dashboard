@@ -53,5 +53,7 @@ https://kingcrowz.github.io/Zaleski-06-homework/
 -Fontawesome
 
 
-## Grading Requirements
+## Contact Me
+-6098287324
+-kingcrowz@comcast.net
 

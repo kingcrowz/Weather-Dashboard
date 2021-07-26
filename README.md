@@ -49,8 +49,6 @@ https://kingcrowz.github.io/Zaleski-06-homework/
 -Moment
 -Jquery
 -googleapis
--Bootstrap
--Fontawesome
 
 
 ## Contact Me

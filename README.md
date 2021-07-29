@@ -13,7 +13,7 @@ The app will also show you the 5 day forecast for the searched city.
 The following image shows the web application's appearance and functionality:
 
 ![VegasForecast](./assets/WeatherDashboard.png)
-https://kingcrowz.github.io/Zaleski-06-homework/
+https://kingcrowz.github.io/Weather-Dashboard/
 
 ## Technologies used
 -CSS
